@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no,width=device-width">
+        <meta http-equiv="x-ua-compatible" content="IE=edge">
+        <link rel="shortcut icon" href="favicon.ico">
+        <title>Esri Campus Viewer</title>
+
+        <!-- Required Esri/Dojo Stylesheets -->
+        <link rel="stylesheet" href="//js.arcgis.com/3.12/esri/css/esri.css">
+
+        <!-- App Style Sheets -->
+        <link rel="stylesheet" href="assets/css/main.min.css">
+        <link rel="stylesheet" href="assets/css/fontawesome-custom.css">
+
+        <!-- Required Libraries -->
+        <script src="lib/underscore-min.js"></script>
+
+    </head>
+    <body class=''>
+        <script>
+            var dojoConfig = {
+                parseOnLoad: true,
+                isDebug: true,
+                async: true // otherwise devtools makes all files VMs. :\
+            };
+        </script>
+
+        <!-- Esri JSAPI -->
+        <script src="//js.arcgis.com/3.12/"></script>
+
+
+        <!-- more modules that aren't included in init.js -->
+        <script src="lib/esri-compiled.js"></script>
+
+        <script src="js/compiled.min.js"></script>
+
+
+        <!-- Application Entry Point -->
+        <script src="js/main.js"></script>
+        <div id="main-container"></div>
+    </body>
+</html>
