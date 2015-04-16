@@ -861,3 +861,15 @@ html, body, #main-container {
 }
 
 /*# sourceMappingURL=main.css.map */
+
+
+
+
+
+
+/*OVERRIDE*/
+
+#main-container #header{
+  background: white!important;
+  color: #00001a;
+}

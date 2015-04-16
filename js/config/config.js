@@ -3,9 +3,9 @@ define(function() {
     return {
         layout: {
             // large header needs to be < 70px high
-            headerIconLarge: 'assets/images/logo65-whiteontrans.png',
+            headerIconLarge: 'assets/images/logo.jpeg',
             headerIconLargeWidth: 65,
-            headerIconSmall: 'assets/images/logo30-whiteontrans.png',
+            headerIconSmall: 'assets/images/logo.jpeg',
             // small header needs to be < 30px high
             headerIconSmallWidth: 30,
             headerTitle: 'Esri Campus PlaceFinder'

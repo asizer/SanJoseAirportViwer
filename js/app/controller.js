@@ -21,6 +21,9 @@ define([
     'app/views/MapButtonPanelView',
     'app/views/MapCoverView',
 
+    'dojo/dom',
+
+    'esri/dijit/Print',
     'esri/map',
     'esri/basemaps',
     'esri/geometry/Extent'],
@@ -30,7 +33,8 @@ function(config,
     BuildingButton, FloorPicker, OverviewMap, LoadIndicator, CustomBMG, Bookmarks, LayerSearch,
     CustomLegend,
     MapButtonPanelView, MapCoverView,
-    Map, esriBasemaps, Extent) {
+    dom,
+    Print, Map, esriBasemaps, Extent) {
 
     return {
 
@@ -104,7 +108,6 @@ function(config,
                 config: config.layout,
             }, 'main-container');
             this.layout.startup();
-
             this.initMap();
 
         },
@@ -183,8 +186,10 @@ function(config,
 
             this.initBMG(mapCoverView);
             this.initLegend(mapCoverView);
+            this.initPrint(mapCoverView);
             this.initBookmarks(mapCoverView);
             this.initSearch(mapCoverView);
+
             // this.initInfo(mapCoverView);
 
         },
@@ -309,6 +314,26 @@ function(config,
             }, searchView.replaceDiv);
             search.startup();
             app.globalSearch = search;
+        },
+
+        initPrint: function(mobileView) {
+            var printView = new MapButtonPanelView({
+                config: config.layout,
+                buttonTitle: 'Print Maps',
+                iconClass: 'fa-print',
+                id: 'printView',
+                toggleDiv: 'map-buttons-horizontal',
+                panelDiv: 'map-panels-horizontal',
+                mobileView: mobileView
+            });
+            printView.startup();
+
+            var print = new Print({
+                map: this.map,
+                url:'http://sampleserver6.arcgisonline.com/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task'
+            }, printView.replaceDiv);
+
+            print.startup();
         },
 
         initInfo: function(mobileView) {

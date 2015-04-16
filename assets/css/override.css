@@ -1,0 +1,72 @@
+
+#main-container #header{
+  background: #eee;
+  color: #00001a;
+  padding: 0px 10px;
+  height: 70px;
+}
+
+#main-container #header-icon{
+  height: 70px;
+}
+
+
+#main-container #header-title{
+  left: 225px!important;
+  line-height: 70px;
+  color: #2d2e66;
+  font-size: 30px;
+}
+
+#main-container #map-container{
+  top: 70px;
+}
+
+#map-container .btn{
+  background-color: rgba(238,238,238,0.7);
+}
+
+#map-container .map-toggle.btn{
+  border: 1px solid #666799;
+}
+
+#map-container .map-toggle.btn.highlight{
+  background-color: #666799;
+}
+
+#map-container .map-toggle.btn.arrow-box:after{
+  border-top-color: #666799;
+}
+
+#map-container .esriSimpleSlider{
+  border: 1px solid #666799;
+}
+
+#map-container .map-panel{
+  padding:10px;
+}
+
+#map-container .map-panel select{
+  border-radius: 2px!important;
+  border: 1px solid #666799;
+}
+
+
+#bookmarksView-panel{
+  width: 190px;
+  text-align: center;
+}
+
+#printView-panel{
+  width: 140px;
+}
+
+.esriPrint {
+  text-align: center;
+  padding: 2px;
+}
+
+.esriPrint .dijitButtonNode{
+  padding: 5px 24px;
+  border-radius: 2px;
+}

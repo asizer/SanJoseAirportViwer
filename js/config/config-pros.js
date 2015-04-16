@@ -12,12 +12,12 @@ define(function() {
         },
         layout: {
             // large header needs to be < 70px high
-            headerIconLarge: 'assets/images/logo65-whiteontrans.png',
+            headerIconLarge: 'assets/images/logo.jpg',
             headerIconLargeWidth: 65,
-            headerIconSmall: 'assets/images/logo30-whiteontrans.png',
+            headerIconSmall: 'assets/images/logo.jpg',
             // small header needs to be < 30px high
             headerIconSmallWidth: 30,
-            headerTitle: 'Esri Campus Viewer'
+            headerTitle: 'San Jose Airport Viewer'
         },
         mapSetup: {
 
