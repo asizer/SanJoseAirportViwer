@@ -17,7 +17,7 @@ define(function() {
             headerIconSmall: 'assets/images/logo.jpg',
             // small header needs to be < 30px high
             headerIconSmallWidth: 30,
-            headerTitle: 'San Jose Airport Viewer'
+            headerTitle: 'San Jose Airport Campus Viewer'
         },
         mapSetup: {
 
