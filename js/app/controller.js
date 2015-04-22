@@ -134,6 +134,8 @@ function(config,
                 this.initBasemaps();
             }
 
+            mapConfig.basemap = "topo";
+
             this.map = new Map('map-container', mapConfig);
             this.mapController = new MapController({
                 map: this.map,
@@ -189,6 +191,7 @@ function(config,
             this.initPrint(mapCoverView);
             this.initBookmarks(mapCoverView);
             this.initSearch(mapCoverView);
+
 
             // this.initInfo(mapCoverView);
 

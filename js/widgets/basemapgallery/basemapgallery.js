@@ -21,16 +21,18 @@ function(declare, lang, domConstruct, domStyle, topic, dojoOn,
 
         postCreate: function(options, viewElement) {
             var bmg = new BMG({
-                portalUrl: options.config.portalUrl,
+                showArcGISBasemaps: true,
+                // portalUrl: options.config.portalUrl,
                 map: options.map,
-                basemaps: this.createCustomBasemaps(options.config.customBasemaps),
+                // basemaps: this.createCustomBasemaps(options.config.customBasemaps),
                 id: options.id,
-            }, viewElement);
+            }, viewElement);t
             this.attachEventListeners(bmg, options);
             bmg.startup();
         },
 
         startup: function() {
+            console.log("basemap gallery start")
         },
 
         attachEventListeners: function(bmg, options) {

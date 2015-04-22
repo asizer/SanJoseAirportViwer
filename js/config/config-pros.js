@@ -41,8 +41,9 @@ define(function() {
             // fitExtent: true, // if true, forces map to always show entire specified extent. if false, map might cut edges off extent.
 
             /*  -----  center/zoom  -----  */
-            center: [-117.196, 34.057], // lng, lat. redlands.
-            zoom: 17, // zoom level for initial extent (before zoom to building)
+            // center: [-117.196, 34.057], // lng, lat. redlands.
+            center: [-121.926, 37.362],
+            zoom: 15, // zoom level for initial extent (before zoom to building)
 
             basemap: 'Color Campus',
             // the user shouldn't change these lods, but could remove unneeded levels --
@@ -120,30 +121,35 @@ define(function() {
                 // 'USA Topo Maps',
                 // 'USGS National Map'
             ],
-            customBasemaps: [{
-                // title for BasemapGallery
-                'title': 'Grey Campus',
-                // path to thumbnail. Starts in root directory of app (relative from index.html)
-                'thumbnailUrl': 'assets/images/Campus_Basemap_Grey_Thumb.png',
-                // Can include multiple layers here. In this one, the default topo map is combined
-                // with a custom campus map so that there's a fallback basemap in areas that the campus map doesn't cover.
-                'baseMapLayers': [{
-                    url: '//services.arcgisonline.com/arcgis/rest/services/World_Topo_Map/MapServer'
-                }, {
-                    url: '//pros00004:6080/arcgis/rest/services/Esri_Campus_Basemaps/Campus_Basemap_Grey/MapServer'
-                }]
-            }, {
-                'title': 'Color Campus',
-                'thumbnailUrl': 'assets/images/Campus_Basemap_Color_Thumb.png',
-                'baseMapLayers': [{
-                    url: '//services.arcgisonline.com/arcgis/rest/services/World_Topo_Map/MapServer'
-                }, {
-                    url: '//pros00004:6080/arcgis/rest/services/Esri_Campus_Basemaps/Campus_Basemap_Color/MapServer'
-                }]
-            }]
+
+            customBasemaps: [],
+
+
+            // customBasemaps: [{
+            //     // title for BasemapGallery
+            //     'title': 'Grey Campus',
+            //     // path to thumbnail. Starts in root directory of app (relative from index.html)
+            //     'thumbnailUrl': 'assets/images/Campus_Basemap_Grey_Thumb.png',
+            //     // Can include multiple layers here. In this one, the default topo map is combined
+            //     // with a custom campus map so that there's a fallback basemap in areas that the campus map doesn't cover.
+            //     'baseMapLayers': [{
+            //         url: '//services.arcgisonline.com/arcgis/rest/services/World_Topo_Map/MapServer'
+            //     }, {
+            //         url: '//pros00004:6080/arcgis/rest/services/Esri_Campus_Basemaps/Campus_Basemap_Grey/MapServer'
+            //     }]
+            // }, {
+            //     'title': 'Color Campus',
+            //     'thumbnailUrl': 'assets/images/Campus_Basemap_Color_Thumb.png',
+            //     'baseMapLayers': [{
+            //         url: '//services.arcgisonline.com/arcgis/rest/services/World_Topo_Map/MapServer'
+            //     }, {
+            //         url: '//pros00004:6080/arcgis/rest/services/Esri_Campus_Basemaps/Campus_Basemap_Color/MapServer'
+            //     }]
+            // }]
         },
         dataLayer: {
-            mapServiceUrl: '//pros00004.esri.com:6080/arcgis/rest/services/EsriCampusViewer/CampusViewer/MapServer',
+            // mapServiceUrl: '//pros00004.esri.com:6080/arcgis/rest/services/EsriCampusViewer/CampusViewer/MapServer',
+            mapServiceUrl:'//pros00004:6080/arcgis/rest/services/SJC/SJC_Test_01/MapServer',
             legendTitle: 'Building Interior',
             hideLegendSubtitles: true,
 
@@ -161,24 +167,46 @@ define(function() {
              *  is a MapServiceLayer, and vice versa).
              */
 
-            buildingLayerInfo: {
-                url: null, // if null, use mapServiceUrl above.
-                layerNum: 6, // required, even if using individual url.
-                buildingField: 'BUILDINGID',
-                labelField: 'LONGNAME',
-                addToMap: true,
-                showInLegend: false,
-                floorFilter: false // if false, all features of this layer will be shown, all the time.
-            },
+             buildingLayerInfo: {
+                 url: null, // if null, use mapServiceUrl above.
+                 layerNum: 2, // required, even if using individual url.
+                 buildingField: 'BLDG_NAME',
+                 labelField: 'BLDG_NAME_FULL',
+                 addToMap: true,
+                 showInLegend: false,
+                 floorFilter: false // if false, all features of this layer will be shown, all the time.
+             },
+
+
+
+            // buildingLayerInfo: {
+            //     url: null, // if null, use mapServiceUrl above.
+            //     layerNum: 6, // required, even if using individual url.
+            //     buildingField: 'BUILDINGID',
+            //     labelField: 'LONGNAME',
+            //     addToMap: true,
+            //     showInLegend: false,
+            //     floorFilter: false // if false, all features of this layer will be shown, all the time.
+            // },
+
             floorLayerInfo: {
                 url: null,
-                layerNum: 5,
-                buildingField: 'BUILDINGKEY',
-                floorField: 'FLOOR',
+                layerNum: 1,
+                buildingField: 'BLDG_NAME',
+                floorField: 'FLOOR_NUM',
                 addToMap: true,
                 showInLegend: false,
                 floorFilter: true // if true, only a single building/floor of this layer will be shown at a time.
             },
+            // floorLayerInfo: {
+            //     url: null,
+            //     layerNum: 5,
+            //     buildingField: 'BUILDINGKEY',
+            //     floorField: 'FLOOR',
+            //     addToMap: true,
+            //     showInLegend: false,
+            //     floorFilter: true // if true, only a single building/floor of this layer will be shown at a time.
+            // },
             roomLayerInfo: {
                 url: null,
                 layerNum: 4,
@@ -208,51 +236,51 @@ define(function() {
                 },
                 queryIconClass: 'fa fa-map-marker'
             },
-            lineLayerInfo: {
-                url: null,
-                layerNum: 3,
-                buildingField: 'BUILDINGKEY',
-                floorField: 'FLOOR',
-                addToMap: true,
-                showInLegend: false,
-                floorFilter: true
-            },
+            // lineLayerInfo: {
+            //     url: null,
+            //     layerNum: 3,
+            //     buildingField: 'BUILDINGKEY',
+            //     floorField: 'FLOOR',
+            //     addToMap: true,
+            //     showInLegend: false,
+            //     floorFilter: true
+            // },
             /* add more layers here. the key doesn't matter. if you want them
              * filtered by floor, make sure you have a buildingField and floorField
              * specified, and a floorFilter = true
              */
-            labelLayerInfo: {
-                layerNum: 7, // this is the number after MapServer/ in the rest endpoint url
-                buildingField: 'building',
-                floorField: 'floor',
-                addToMap: true,
-                showInLegend: false,
-                floorFilter: true // if true, will filter using buildingField and floorField
-            },
-            fireExtinguishersLayerInfo: {
-                layerNum: 0, // this is the number after MapServer/ in the rest endpoint url
-                buildingField: 'BUILDING',
-                floorField: 'FLOOR',
-                addToMap: false,
-                showInLegend: false,
-                floorFilter: false // if false, will always display, no matter which building.
-            },
-            firstAidLayerInfo: {
-                layerNum: 1, // this is the number after MapServer/ in the rest endpoint url
-                buildingField: 'BUILDING',
-                floorField: 'FLOOR',
-                addToMap: false,
-                showInLegend: false,
-                floorFilter: false // if false, will always display, no matter which building.
-            },
-            smokingAreaLayerInfo: {
-                layerNum: 2, // this is the number after MapServer/ in the rest endpoint url
-                buildingField: 'BUILDING',
-                floorField: 'FLOOR',
-                addToMap: true,
-                showInLegend: false,
-                floorFilter: false // if false, will always display, no matter which building.
-            },
+            // labelLayerInfo: {
+            //     layerNum: 7, // this is the number after MapServer/ in the rest endpoint url
+            //     buildingField: 'building',
+            //     floorField: 'floor',
+            //     addToMap: true,
+            //     showInLegend: false,
+            //     floorFilter: true // if true, will filter using buildingField and floorField
+            // },
+            // fireExtinguishersLayerInfo: {
+            //     layerNum: 0, // this is the number after MapServer/ in the rest endpoint url
+            //     buildingField: 'BUILDING',
+            //     floorField: 'FLOOR',
+            //     addToMap: false,
+            //     showInLegend: false,
+            //     floorFilter: false // if false, will always display, no matter which building.
+            // },
+            // firstAidLayerInfo: {
+            //     layerNum: 1, // this is the number after MapServer/ in the rest endpoint url
+            //     buildingField: 'BUILDING',
+            //     floorField: 'FLOOR',
+            //     addToMap: false,
+            //     showInLegend: false,
+            //     floorFilter: false // if false, will always display, no matter which building.
+            // },
+            // smokingAreaLayerInfo: {
+            //     layerNum: 2, // this is the number after MapServer/ in the rest endpoint url
+            //     buildingField: 'BUILDING',
+            //     floorField: 'FLOOR',
+            //     addToMap: true,
+            //     showInLegend: false,
+            //     floorFilter: false // if false, will always display, no matter which building.
+            // },
             personQueryLayerInfo: {
                 url: null,
                 layerNum: 8,
