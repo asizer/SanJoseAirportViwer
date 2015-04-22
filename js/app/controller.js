@@ -23,6 +23,7 @@ define([
 
     'dojo/dom',
 
+    "dijit/form/Button",
     'esri/dijit/Print',
     'esri/map',
     'esri/basemaps',
@@ -34,7 +35,7 @@ function(config,
     CustomLegend,
     MapButtonPanelView, MapCoverView,
     dom,
-    Print, Map, esriBasemaps, Extent) {
+    Button, Print, Map, esriBasemaps, Extent) {
 
     return {
 
@@ -333,10 +334,34 @@ function(config,
 
             var print = new Print({
                 map: this.map,
-                url:'http://sampleserver6.arcgisonline.com/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task'
+                url:'http://pros00004:6080/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task'
             }, printView.replaceDiv);
 
             print.startup();
+
+
+            // var printButton = new Button({
+            //     label: "Click me!"
+            // }, printView.replaceDiv).startup();
+            //
+            // this.own(on(printButton, "click", lang.hitch(this, function(evt){
+            //     var print_url = "http://ngmc.esri.com:6080/arcgis/rest/services/NRCS_POD/WatershedExport/GPServer/WatershedExport";
+            //     printer = new esri.tasks.PrintTask(print_url);
+            //     var params = new esri.tasks.PrintParameters();
+            //     params.map = this.map;
+            //     params.extraParameters = {
+            //         //Web_Map_as_JSON : mapjson,
+            //         //Format: "",
+            //         Layout_Template : "A_size_landscape",
+            //         Title: "exported map"
+            //         };
+            //     printer.execute(params, printResult);
+            //     //document.getElementById("printURL").innerHTML = "Printing...";
+            //     function printResult(result) {
+            //         window.open(result, "_blank");
+            //             }
+            // })));
+
         },
 
         initInfo: function(mobileView) {

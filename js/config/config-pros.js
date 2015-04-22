@@ -95,9 +95,9 @@ define(function() {
          * the basemap of this overviewMap must be specified as a URL of a tile layer.
          */
         overviewMap: {
-            visibleLayers: [3, 4, 5, 6], // this is room lines, rooms, floors, building footprints
+            visibleLayers: [0, 1, 2, 3], // this is room lines, rooms, floors, building footprints
             openOnLoad: true, // start open
-            basemapUrl: '//server.arcgisonline.com/arcgis/rest/services/World_Street_Map/MapServer'
+            basemapUrl: 'http://server.arcgisonline.com/arcgis/rest/services/World_Topo_Map/MapServer'
         },
         /*
          * These are the names of the currently available ArcGISOnline basemaps. The user can specify which
@@ -149,7 +149,7 @@ define(function() {
         },
         dataLayer: {
             // mapServiceUrl: '//pros00004.esri.com:6080/arcgis/rest/services/EsriCampusViewer/CampusViewer/MapServer',
-            mapServiceUrl:'//pros00004:6080/arcgis/rest/services/SJC/SJC_Test_01/MapServer',
+            mapServiceUrl:'http://pros00004:6080/arcgis/rest/services/SJC/SJC_CampusViewer_v1/MapServer',
             legendTitle: 'Building Interior',
             hideLegendSubtitles: true,
 
@@ -169,9 +169,9 @@ define(function() {
 
              buildingLayerInfo: {
                  url: null, // if null, use mapServiceUrl above.
-                 layerNum: 2, // required, even if using individual url.
+                 layerNum: 3, // required, even if using individual url.
                  buildingField: 'BLDG_NAME',
-                 labelField: 'BLDG_NAME_FULL',
+                 labelField: 'BLDG_NAME',
                  addToMap: true,
                  showInLegend: false,
                  floorFilter: false // if false, all features of this layer will be shown, all the time.
@@ -190,13 +190,13 @@ define(function() {
             // },
 
             floorLayerInfo: {
-                url: null,
-                layerNum: 1,
-                buildingField: 'BLDG_NAME',
-                floorField: 'FLOOR_NUM',
-                addToMap: true,
-                showInLegend: false,
-                floorFilter: true // if true, only a single building/floor of this layer will be shown at a time.
+                // url: null,
+                // layerNum: 2,
+                // buildingField: 'BLDG_NAME',
+                // floorField: 'FLOOR_NUM',
+                // addToMap: true,
+                // showInLegend: false,
+                // floorFilter: true // if true, only a single building/floor of this layer will be shown at a time.
             },
             // floorLayerInfo: {
             //     url: null,
@@ -209,46 +209,55 @@ define(function() {
             // },
             roomLayerInfo: {
                 url: null,
-                layerNum: 4,
+                layerNum: 2,
                 oidField: 'OBJECTID',
                 relationshipId: 0, // this is a related table to the room layer
-                buildingField: 'BUILDING',
-                floorField: 'FLOOR',
-                roomField: 'LOCATION', // this must be a UNIQUE KEY for the room layer.
+                buildingField: 'BLDG_NAME',
+                floorField: 'FLOOR_NUM',
+                roomField: 'SPACE_NUM', // this must be a UNIQUE KEY for the room layer.
                 addToMap: true,
                 showInLegend: true,
                 floorFilter: true,
                 popupFields: [
-                    {fieldName: 'LOCATION', label: 'Room Number'},
-                    {fieldName: 'SHORTNAME', label: 'Space Name'},
-                    {fieldName: 'DESCRIP', label: 'Description'},
-                    {fieldName: 'CAPACITY', label: 'Capacity'}
+                    {fieldName: 'SPACE_NUM', label: 'Space Number'},
+                    {fieldName: 'OCCUPIED_BY', label: 'Occupant'},
+                    {fieldName: 'DESCRIPTION', label: 'Description'},
+                    {fieldName: 'SPACE_TYPE', label: 'Space Type'}
                 ],
                 // the *first* one of these fields to be encountered will be used in the popup title
-                popupTitleField: ['LONGNAME', 'LOCATION'],
+                popupTitleField: ['SPACE_NUM', 'DESCRIPTION'],
                 popupTitlePriority: false,
-                queryFields: ['SHORTNAME', 'LOCATION'],
-                queryLabelFields: ['SHORTNAME', 'LOCATION', 'BUILDING'],
-                queryLabelFunction: function(attrs) {
-                    // 'this' = roomLyrInfo
-                    var roomNameStr = attrs.SHORTNAME ? attrs.SHORTNAME + ', ' : '';
-                    return roomNameStr + attrs.LOCATION + ' (Building ' + attrs.BUILDING + ')';
-                },
-                queryIconClass: 'fa fa-map-marker'
+                // queryFields: ['SHORTNAME', 'LOCATION'],
+                // queryLabelFields: ['SHORTNAME', 'LOCATION', 'BUILDING'],
+                // queryLabelFunction: function(attrs) {
+                //     // 'this' = roomLyrInfo
+                //     var roomNameStr = attrs.SHORTNAME ? attrs.SHORTNAME + ', ' : '';
+                //     return roomNameStr + attrs.LOCATION + ' (Building ' + attrs.BUILDING + ')';
+                // },
+                // queryIconClass: 'fa fa-map-marker'
             },
-            // lineLayerInfo: {
-            //     url: null,
-            //     layerNum: 3,
-            //     buildingField: 'BUILDINGKEY',
-            //     floorField: 'FLOOR',
-            //     addToMap: true,
-            //     showInLegend: false,
-            //     floorFilter: true
-            // },
+            lineLayerInfo: {
+                url: null,
+                layerNum: 0,
+                buildingField: 'BLDG_NAME',
+                floorField: 'FLOOR_NUM',
+                addToMap: true,
+                showInLegend: false,
+                floorFilter: true
+            },
             /* add more layers here. the key doesn't matter. if you want them
              * filtered by floor, make sure you have a buildingField and floorField
              * specified, and a floorFilter = true
              */
+             lineLayerInfo_additional: {
+                 url: null,
+                 layerNum: 1,
+                 buildingField: 'BLDG_NAME',
+                 floorField: 'FLOOR_NUM',
+                 addToMap: true,
+                 showInLegend: false,
+                 floorFilter: true
+             },
             // labelLayerInfo: {
             //     layerNum: 7, // this is the number after MapServer/ in the rest endpoint url
             //     buildingField: 'building',
