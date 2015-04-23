@@ -135,8 +135,6 @@ function(config,
                 this.initBasemaps();
             }
 
-            mapConfig.basemap = "topo";
-
             this.map = new Map('map-container', mapConfig);
             this.mapController = new MapController({
                 map: this.map,
