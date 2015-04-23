@@ -26,16 +26,17 @@ function(declare, lang, domConstruct, domStyle, topic, dojoOn,
                 map: options.map,
                 // basemaps: this.createCustomBasemaps(options.config.customBasemaps),
                 id: options.id,
-            }, viewElement);t
+            }, viewElement);
             this.attachEventListeners(bmg, options);
             bmg.startup();
         },
 
         startup: function() {
-            console.log("basemap gallery start")
+            console.log("basemap gallery start");
         },
 
         attachEventListeners: function(bmg, options) {
+            // if you don't want to exclude basemaps (in config), you need to comment out the next line
             bmg.on('load', lang.partial(this.customizeBMG, options.config.basemapTitles));
             bmg.on('selection-change', lang.hitch(this, this.broadcastFunctionFinished));
             dojoOn.once(bmg, 'selection-change', lang.partial(this.onFirstSelection, options.map));
