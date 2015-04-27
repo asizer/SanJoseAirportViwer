@@ -333,6 +333,20 @@ function(config,
             printView.startup();
 
             var print = new Print({
+              templates: [{
+                  label: "San Jose Airport Campus Viewer",
+                  format: "PDF",
+                  layout: "Letter ANSI A Landscape",
+                  layoutOptions:{
+
+                  },
+                  showAttribution:false
+                  // exportOptions: {
+                  //   width: 500,
+                  //   height: 400,
+                  //   dpi: 96
+                  // }
+                }],
                 map: this.map,
                 url:'http://pros00004:6080/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task'
             }, printView.replaceDiv);

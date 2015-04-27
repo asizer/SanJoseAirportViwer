@@ -169,9 +169,9 @@ define(function() {
 
              buildingLayerInfo: {
                  url: null, // if null, use mapServiceUrl above.
-                 layerNum: 3, // required, even if using individual url.
-                 buildingField: 'BLDG_NAME',
-                 labelField: 'BLDG_NAME',
+                 layerNum: 4, // required, even if using individual url.
+                 buildingField: 'BLDG_KEY',
+                 labelField: 'BLDG_KEY',
                  addToMap: true,
                  showInLegend: false,
                  floorFilter: false // if false, all features of this layer will be shown, all the time.
@@ -190,13 +190,13 @@ define(function() {
             // },
 
             floorLayerInfo: {
-                // url: null,
-                // layerNum: 2,
-                // buildingField: 'BLDG_NAME',
-                // floorField: 'FLOOR_NUM',
-                // addToMap: true,
-                // showInLegend: false,
-                // floorFilter: true // if true, only a single building/floor of this layer will be shown at a time.
+                url: null,
+                layerNum: 3,
+                buildingField: 'BLDG_KEY',
+                floorField: 'FLOOR',
+                addToMap: true,
+                showInLegend: false,
+                floorFilter: true // if true, only a single building/floor of this layer will be shown at a time.
             },
             // floorLayerInfo: {
             //     url: null,
@@ -212,29 +212,29 @@ define(function() {
                 layerNum: 2,
                 oidField: 'OBJECTID',
                 relationshipId: 0, // this is a related table to the room layer
-                buildingField: 'BLDG_NAME',
+                buildingField: 'BLDG_KEY',
                 floorField: 'FLOOR_NUM',
-                roomField: 'SPACE_NUM', // this must be a UNIQUE KEY for the room layer.
+                roomField: 'ROOM_NUM', // this must be a UNIQUE KEY for the room layer.
                 addToMap: true,
                 showInLegend: true,
                 floorFilter: true,
                 popupFields: [
-                    {fieldName: 'SPACE_NUM', label: 'Space Number'},
+                    {fieldName: 'ROOM_NUM', label: 'Room Number'},
                     {fieldName: 'OCCUPIED_BY', label: 'Occupant'},
                     {fieldName: 'DESCRIPTION', label: 'Description'},
                     {fieldName: 'SPACE_TYPE', label: 'Space Type'}
                 ],
                 // the *first* one of these fields to be encountered will be used in the popup title
-                popupTitleField: ['SPACE_NUM', 'DESCRIPTION'],
+                popupTitleField: ['ROOM_NUM', 'DESCRIPTION'],
                 popupTitlePriority: false,
-                // queryFields: ['SHORTNAME', 'LOCATION'],
-                // queryLabelFields: ['SHORTNAME', 'LOCATION', 'BUILDING'],
-                // queryLabelFunction: function(attrs) {
-                //     // 'this' = roomLyrInfo
-                //     var roomNameStr = attrs.SHORTNAME ? attrs.SHORTNAME + ', ' : '';
-                //     return roomNameStr + attrs.LOCATION + ' (Building ' + attrs.BUILDING + ')';
-                // },
-                // queryIconClass: 'fa fa-map-marker'
+                queryFields: ['ROOM_NUM', 'OCCUPIED_BY'],
+                queryLabelFields: ['ROOM_NUM', 'OCCUPIED_BY'],
+                queryLabelFunction: function(attrs) {
+                    // 'this' = roomLyrInfo
+                    var roomNameStr = attrs.SHORTNAME ? attrs.SHORTNAME + ', ' : '';
+                    return roomNameStr + attrs.LOCATION + ' (Building ' + attrs.BUILDING + ')';
+                },
+                queryIconClass: 'fa fa-map-marker'
             },
             lineLayerInfo: {
                 url: null,
