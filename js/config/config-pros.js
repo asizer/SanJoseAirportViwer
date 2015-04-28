@@ -97,7 +97,7 @@ define(function() {
         overviewMap: {
             visibleLayers: [2, 4], // this is rooms, building footprints
             openOnLoad: true, // start open
-            basemapUrl: '//server.arcgisonline.com/arcgis/rest/services/World_Topo_Map/MapServer'
+            basemapUrl: 'http://server.arcgisonline.com/arcgis/rest/services/World_Topo_Map/MapServer'
         },
         /*
          * These are the names of the currently available ArcGISOnline basemaps. The user can specify which
@@ -149,7 +149,7 @@ define(function() {
         },
         dataLayer: {
             // mapServiceUrl: '//pros00004.esri.com:6080/arcgis/rest/services/EsriCampusViewer/CampusViewer/MapServer',
-            mapServiceUrl:'//pros00004:6080/arcgis/rest/services/SJC/SJC_CampusViewer_v1/MapServer',
+            mapServiceUrl:'http://pros00004:6080/arcgis/rest/services/SJC/SJC_CampusViewer_v1/MapServer',
             legendTitle: 'Building Interior',
             hideLegendSubtitles: true,
 
@@ -222,7 +222,9 @@ define(function() {
                     {fieldName: 'ROOM_NUM', label: 'Room Number'},
                     {fieldName: 'OCCUPIED_BY', label: 'Occupant'},
                     {fieldName: 'DESCRIPTION', label: 'Description'},
-                    {fieldName: 'SPACE_TYPE', label: 'Space Type'}
+                    {fieldName: 'SPACE_TYPE', label: 'Space Type'},
+                    {fieldName: 'BILLED_SQ_FT', label: 'Billed SqFt'},
+                    {fieldName: 'TOTAL_SQ_FT', label: 'Total SqFt'}
                 ],
                 // the *first* one of these fields to be encountered will be used in the popup title
                 popupTitleField: ['ROOM_NUM', 'DESCRIPTION'],

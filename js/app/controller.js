@@ -23,6 +23,7 @@ define([
 
     'dojo/dom',
 
+    "esri/tasks/LegendLayer",
     "dijit/form/Button",
     'esri/dijit/Print',
     'esri/map',
@@ -35,7 +36,7 @@ function(config,
     CustomLegend,
     MapButtonPanelView, MapCoverView,
     dom,
-    Button, Print, Map, esriBasemaps, Extent) {
+    LegendLayer, Button, Print, Map, esriBasemaps, Extent) {
 
     return {
 
@@ -331,7 +332,13 @@ function(config,
                 mobileView: mobileView
             });
             printView.startup();
-            console.log(this.map)
+            console.log(this.map);
+
+            var legendLayer = new LegendLayer();
+            legendLayer.layerId = "dataLayer";
+            legendLayer.subLayerIds = [0,1,2,3,4];
+            var lengendLayerList=[legendLayer];
+
 
             var print = new Print({
               templates: [{
@@ -339,12 +346,12 @@ function(config,
                   format: "PDF",
                   layout: "Letter ANSI A Landscape",
                   layoutOptions:{
-
+                    legendLayers: lengendLayerList
                   },
-                  showAttribution:false
+                  showAttribution:false,
                   // exportOptions: {
-                  //   width: 500,
-                  //   height: 400,
+                  //   width: 50,
+                  //   height: 40,
                   //   dpi: 96
                   // }
                 }],

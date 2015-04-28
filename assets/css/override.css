@@ -71,9 +71,14 @@
   border-radius: 2px;
 }
 
+.esriBasemapGalleryNode span{
+  font-size:13px;
+}
+
 .esriPrint a{
   text-decoration:none;
-  color:black;
+  background-color: #666799;
+  color: white;
   padding: 5px 28px;
   border-radius: 2px;
   border: 1px solid gray;
@@ -94,7 +99,7 @@
 }
 
 #bmgView-panel .esriBasemapGallerySelectedNode .esriBasemapGalleryThumbnail{
-  border: 2px solid #2d2e66;
+  border: 2px solid #666799;
 }
 
 #map-container .btn.highlight{
