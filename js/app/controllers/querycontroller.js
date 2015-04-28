@@ -34,20 +34,20 @@ function(declare, lang, topic, dojoOn,
             this.buildingLyrInfo = options.dataConfig.buildingLayerInfo;
             this.floorLyrInfo = options.dataConfig.floorLayerInfo;
             this.roomLyrInfo = options.dataConfig.roomLayerInfo;
-            this.personQLyrInfo = options.dataConfig.personQueryLayerInfo;
+            // this.personQLyrInfo = options.dataConfig.personQueryLayerInfo;
             this.mapServiceUrl = options.dataConfig.mapServiceUrl;
 
             // save outfields for room and person query layers
             this.roomOutfields = this.computeLayerOutfields(this.roomLyrInfo);
-            this.personOutfields = this.computeLayerOutfields(this.personQLyrInfo);
+            // this.personOutfields = this.computeLayerOutfields(this.personQLyrInfo);
 
             // construct room and person query layers
             this.roomQLayer = new FeatureLayer(this.roomLyrInfo.url || this.mapServiceUrl + '/' + this.roomLyrInfo.layerNum, {
                 outFields: this.roomOutfields
             });
-            this.personQLayer = new FeatureLayer(this.personQLyrInfo.url || this.mapServiceUrl + '/' + this.personQLyrInfo.layerNum, {
-                outFields: this.personOutfields
-            });
+            // this.personQLayer = new FeatureLayer(this.personQLyrInfo.url || this.mapServiceUrl + '/' + this.personQLyrInfo.layerNum, {
+            //     outFields: this.personOutfields
+            // });
 
         },
 
@@ -78,6 +78,7 @@ function(declare, lang, topic, dojoOn,
                 query: {
                     outFields: [this.buildingLyrInfo.buildingField],
                     returnGeometry: true,
+                    outSpatialReference: app.map.spatialReference,
                     where: queryUtil.constructWhereAnd([{
                         fieldName: this.buildingLyrInfo.buildingField,
                         newValue: this.currentQueryResults.building
@@ -113,6 +114,7 @@ function(declare, lang, topic, dojoOn,
                 query: {
                     outFields: [this.buildingLyrInfo.buildingField],
                     geometry: mapEvt.mapPoint,
+                    outSpatialReference: mapEvt.mapPoint.spatialReference,
                     returnGeometry: true
                 },
                 url: this.buildingLyrInfo.url || this.mapServiceUrl + '/' + this.buildingLyrInfo.layerNum,
@@ -200,6 +202,7 @@ function(declare, lang, topic, dojoOn,
                 query: {
                     outFields: this.roomOutfields,
                     geometry: mapClickPoint,
+                    outSpatialReference: mapClickPoint.spatialReference,
                     returnGeometry: true,
                     where: queryUtil.constructWhereAnd([{
                         fieldName: this.roomLyrInfo.buildingField,
@@ -222,6 +225,7 @@ function(declare, lang, topic, dojoOn,
                 query: {
                     outFields: _.union(this.roomOutfields, [this.roomLyrInfo.buildingField, this.roomLyrInfo.floorField]),
                     returnGeometry: true,
+                    outSpatialReference: app.map.spatialReference,
                     where: queryUtil.constructWhereAnd([{
                         fieldName: 'UPPER(' + this.roomLyrInfo.roomField + ')',
                         newValue: roomId.toUpperCase()
@@ -260,10 +264,11 @@ function(declare, lang, topic, dojoOn,
 
             roomFeature.centerMap = params.centerMap; // eh, this is a little hacky...
 
-            this.runRoomRelatedQuery(roomFeature);
+            this.publishRoomResults(roomFeature);
+
         },
 
-        runRoomRelatedQuery: function(roomFeature) {
+        /*runRoomRelatedQuery: function(roomFeature) {
             queryUtil.createAndRunRelated({
                 rq: {
                     outFields: this.personOutfields,
@@ -276,9 +281,19 @@ function(declare, lang, topic, dojoOn,
                 callback: this.roomRelatedQueryResponseHandler,
                 callbackArgs: roomFeature
             });
+        },*/
+
+        publishRoomResults: function(roomFeature) {
+            topic.publish('query-done'); // end of the line. no more queries from here.
+            topic.publish('feature-find', {
+                roomAttr: roomFeature.attributes,
+                roomGeom: roomFeature.geometry,
+                centerMap: roomFeature.centerMap
+            });
+
         },
 
-        roomRelatedQueryResponseHandler: function(roomFeature, peopleResponse) {
+        /*roomRelatedQueryResponseHandler: function(roomFeature, peopleResponse) {
             topic.publish('query-done'); // end of the line. no more queries from here.
             var roomFeatureOID = roomFeature.attributes[this.roomLyrInfo.oidField];
             console.debug('roomRelatedQueryResponseHandler.');
@@ -300,9 +315,9 @@ function(declare, lang, topic, dojoOn,
                 personAttr: personAttrs
             });
 
-        },
+        },*/
 
-        runPersonRelatedQuery: function(personFeature) {
+        /*runPersonRelatedQuery: function(personFeature) {
             queryUtil.createAndRunRelated({
                 rq: {
                     outFields: _.union(this.roomOutfields, [this.roomLyrInfo.buildingField, this.roomLyrInfo.floorField]),
@@ -360,7 +375,7 @@ function(declare, lang, topic, dojoOn,
                 personAttr: personFeature.attributes
             });
 
-        },
+        },*/
 
         runOIDQuery: function(oidArgs) {
             switch (oidArgs.lyr) {
@@ -381,6 +396,7 @@ function(declare, lang, topic, dojoOn,
                 query: {
                     outFields: _.union(this.roomOutfields, [this.roomLyrInfo.buildingField, this.roomLyrInfo.floorField]),
                     returnGeometry: true,
+                    outSpatialReference: app.map.spatialReference,
                     objectIds: [oid]
                 },
                 url: this.roomLyrInfo.url || this.mapServiceUrl + '/' + this.roomLyrInfo.layerNum,
@@ -415,11 +431,12 @@ function(declare, lang, topic, dojoOn,
 
             roomFeature.centerMap = params.centerMap; // eh, this is a little hacky...
 
-            this.runRoomRelatedQuery(roomFeature);
+            // this.runRoomRelatedQuery(roomFeature);
+            this.publishRoomResults(roomFeature);
 
         },
 
-        runPersonOIDQuery: function(oid) {
+        /*runPersonOIDQuery: function(oid) {
 
             queryUtil.createAndRun({
                 query: {
@@ -443,9 +460,9 @@ function(declare, lang, topic, dojoOn,
             var personFeature = response.features[0];
 
             this.runPersonRelatedQuery(personFeature);
-        },
+        },*/
 
-        consolidateAttributes: function(featureArr) {
+        /*consolidateAttributes: function(featureArr) {
             var returnAttrs = {};
             _.each(featureArr, function(feat) {
                 _.each(feat.attributes, function(attrValue, attrKey) {
@@ -457,7 +474,7 @@ function(declare, lang, topic, dojoOn,
                 obj[key] = attrArr.join(',<br>');
             });
             return returnAttrs;
-        },
+        },*/
 
 
         clearCurrentQueryResults: function() {

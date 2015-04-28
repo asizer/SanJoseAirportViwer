@@ -45,7 +45,7 @@ define(function() {
             center: [-121.926, 37.362],
             zoom: 15, // zoom level for initial extent (before zoom to building)
 
-            basemap: 'Color Campus',
+            basemap: 'topo',
             // the user shouldn't change these lods, but could remove unneeded levels --
             // for instance, if the user's campus is a single site, there's no need for levels 0-13.
             // just be careful to end every object except the last with a comma.
@@ -97,7 +97,7 @@ define(function() {
         overviewMap: {
             visibleLayers: [0, 1, 2, 3], // this is room lines, rooms, floors, building footprints
             openOnLoad: true, // start open
-            basemapUrl: 'http://server.arcgisonline.com/arcgis/rest/services/World_Topo_Map/MapServer'
+            basemapUrl: '//server.arcgisonline.com/arcgis/rest/services/World_Topo_Map/MapServer'
         },
         /*
          * These are the names of the currently available ArcGISOnline basemaps. The user can specify which
@@ -149,7 +149,7 @@ define(function() {
         },
         dataLayer: {
             // mapServiceUrl: '//pros00004.esri.com:6080/arcgis/rest/services/EsriCampusViewer/CampusViewer/MapServer',
-            mapServiceUrl:'http://pros00004:6080/arcgis/rest/services/SJC/SJC_CampusViewer_v1/MapServer',
+            mapServiceUrl:'//pros00004:6080/arcgis/rest/services/SJC/SJC_CampusViewer_v1/MapServer',
             legendTitle: 'Building Interior',
             hideLegendSubtitles: true,
 
@@ -228,18 +228,18 @@ define(function() {
                 popupTitleField: ['ROOM_NUM', 'DESCRIPTION'],
                 popupTitlePriority: false,
                 queryFields: ['ROOM_NUM', 'OCCUPIED_BY'],
-                queryLabelFields: ['ROOM_NUM', 'OCCUPIED_BY'],
+                queryLabelFields: ['ROOM_NUM', 'OCCUPIED_BY', 'BLDG_NAME'],
                 queryLabelFunction: function(attrs) {
                     // 'this' = roomLyrInfo
-                    var roomNameStr = attrs.SHORTNAME ? attrs.SHORTNAME + ', ' : '';
-                    return roomNameStr + attrs.LOCATION + ' (Building ' + attrs.BUILDING + ')';
+                    var roomNameStr = attrs.ROOM_NUM ? attrs.ROOM_NUM + ', ' : '';
+                    return roomNameStr + (attrs.OCCUPIED_BY || '') + ' (Bldg ' + attrs.BLDG_NAME + ')';
                 },
                 queryIconClass: 'fa fa-map-marker'
             },
             lineLayerInfo: {
                 url: null,
                 layerNum: 0,
-                buildingField: 'BLDG_NAME',
+                buildingField: 'BLDG_KEY',
                 floorField: 'FLOOR_NUM',
                 addToMap: true,
                 showInLegend: false,
@@ -252,12 +252,12 @@ define(function() {
              lineLayerInfo_additional: {
                  url: null,
                  layerNum: 1,
-                 buildingField: 'BLDG_NAME',
+                 buildingField: 'BLDG_KEY',
                  floorField: 'FLOOR_NUM',
                  addToMap: true,
                  showInLegend: false,
                  floorFilter: true
-             },
+             }
             // labelLayerInfo: {
             //     layerNum: 7, // this is the number after MapServer/ in the rest endpoint url
             //     buildingField: 'building',
@@ -290,7 +290,7 @@ define(function() {
             //     showInLegend: false,
             //     floorFilter: false // if false, will always display, no matter which building.
             // },
-            personQueryLayerInfo: {
+            /*personQueryLayerInfo: {
                 url: null,
                 layerNum: 8,
                 addToMap: false,
@@ -319,7 +319,7 @@ define(function() {
                     return attrs.KNOWN_AS_N + ' (' + locStr + ')';
                 },
                 queryIconClass: 'fa fa-user'
-            }
+            }*/
 
         }
     };

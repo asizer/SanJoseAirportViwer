@@ -51,7 +51,7 @@ function(declare, lang, dojoQuery, topic, dojoOn,
             this.map = options.map;
             this.symbolConfig = options.symbolConfig;
             this.dataConfig = options.dataConfig;
-            this.personQLyrInfo = options.dataConfig.personQueryLayerInfo;
+            // this.personQLyrInfo = options.dataConfig.personQueryLayerInfo;
             this.roomLyrInfo = options.dataConfig.roomLayerInfo;
 
             // set up some other things...
@@ -86,11 +86,11 @@ function(declare, lang, dojoQuery, topic, dojoOn,
          */
         createInfoTemplates: function() {
             // to not clutter up the config with "visible: true" for all the popup fields, add it here.
-            this.popupInfo.allFields = _.map(this.roomLyrInfo.popupFields.concat(this.personQLyrInfo.popupFields), function(obj) {
+            this.popupInfo.allFields = _.map(this.roomLyrInfo.popupFields/*.concat(this.personQLyrInfo.popupFields)*/, function(obj) {
                 return _.extend(obj, {visible: true});
             });
 
-            this.popupInfo.formatFields = _.filter(this.roomLyrInfo.popupFields.concat(this.personQLyrInfo.popupFields), function(obj) {
+            this.popupInfo.formatFields = _.filter(this.roomLyrInfo.popupFields/*.concat(this.personQLyrInfo.popupFields)*/, function(obj) {
                 return obj.formatter;
             });
 
@@ -100,9 +100,7 @@ function(declare, lang, dojoQuery, topic, dojoOn,
                 fieldInfos: this.popupInfo.allFields.push({fieldName: 'ROOMNOTFOUND', label: 'Room', visible: true})
             });
 
-            this.popupInfo.popupTitleArr = this.roomLyrInfo.popupTitlePriority ?
-                    this.roomLyrInfo.popupTitleField.concat(this.personQLyrInfo.popupTitleField) :
-                    this.personQLyrInfo.popupTitleField.concat(this.roomLyrInfo.popupTitleField);
+            this.popupInfo.popupTitleArr = this.roomLyrInfo.popupTitleField;
         },
 
         /**
