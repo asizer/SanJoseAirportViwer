@@ -217,7 +217,9 @@ function(config,
             var overviewMap = new OverviewMap({
                 map: this.map,
                 config: config.overviewMap,
-                mapServiceUrl: config.dataLayer.mapServiceUrl
+                mapServiceUrl: config.dataLayer.mapServiceUrl,
+                bldgLyrNum: config.dataLayer.buildingLayerInfo.layerNum,
+                startingBuilding: this.locModel.building ? true : false
             });
             overviewMap.startup();
         },

@@ -95,7 +95,7 @@ define(function() {
          * the basemap of this overviewMap must be specified as a URL of a tile layer.
          */
         overviewMap: {
-            visibleLayers: [0, 1, 2, 3], // this is room lines, rooms, floors, building footprints
+            visibleLayers: [2, 4], // this is rooms, building footprints
             openOnLoad: true, // start open
             basemapUrl: '//server.arcgisonline.com/arcgis/rest/services/World_Topo_Map/MapServer'
         },
