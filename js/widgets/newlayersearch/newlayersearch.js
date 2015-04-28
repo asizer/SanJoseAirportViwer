@@ -43,15 +43,15 @@ function(declare, lang, dojoAll, topic,
         setUpClassProperties: function(options) {
             this.mapServiceUrl = options.dataConfig.mapServiceUrl;
             this.roomLyrInfo = options.dataConfig.roomLayerInfo;
-            this.personLyrInfo = options.dataConfig.personQueryLayerInfo;
+            // this.personLyrInfo = options.dataConfig.personQueryLayerInfo;
             this.roomQ = queryUtil.createQuery({
                 outFields: _.union(this.roomLyrInfo.queryFields, this.roomLyrInfo.queryLabelFields, [this.roomLyrInfo.oidField]),
                 returnGeometry: false
             });
-            this.personQ = queryUtil.createQuery({
-                outFields: _.union(this.personLyrInfo.queryFields, this.personLyrInfo.queryLabelFields, [this.personLyrInfo.oidField]),
-                returnGeometry: false
-            });
+            // this.personQ = queryUtil.createQuery({
+            //     outFields: _.union(this.personLyrInfo.queryFields, this.personLyrInfo.queryLabelFields, [this.personLyrInfo.oidField]),
+            //     returnGeometry: false
+            // });
         },
 
         attachEventListeners: function() {
@@ -66,12 +66,12 @@ function(declare, lang, dojoAll, topic,
                 return;
             }
             this.roomQ.where = this.constructWhere(this.roomLyrInfo.queryFields, str);
-            this.personQ.where = this.constructWhere(this.personLyrInfo.queryFields, str);
+            // this.personQ.where = this.constructWhere(this.personLyrInfo.queryFields, str);
 
             var roomQT = new QT(this.roomLyrInfo.url || this.mapServiceUrl + '/' + this.roomLyrInfo.layerNum);
-            var personQT = new QT(this.personLyrInfo.url || this.mapServiceUrl + '/' + this.personLyrInfo.layerNum);
+            // var personQT = new QT(this.personLyrInfo.url || this.mapServiceUrl + '/' + this.personLyrInfo.layerNum);
 
-            dojoAll({room: roomQT.execute(this.roomQ), person: personQT.execute(this.personQ)})
+            dojoAll({room: roomQT.execute(this.roomQ)/*, person: personQT.execute(this.personQ)*/})
                 .then(lang.hitch(this, this.handleQueryResults), queryUtil.genericErrback);
 
         },

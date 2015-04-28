@@ -228,18 +228,18 @@ define(function() {
                 popupTitleField: ['ROOM_NUM', 'DESCRIPTION'],
                 popupTitlePriority: false,
                 queryFields: ['ROOM_NUM', 'OCCUPIED_BY'],
-                queryLabelFields: ['ROOM_NUM', 'OCCUPIED_BY'],
+                queryLabelFields: ['ROOM_NUM', 'OCCUPIED_BY', 'BLDG_NAME'],
                 queryLabelFunction: function(attrs) {
                     // 'this' = roomLyrInfo
-                    var roomNameStr = attrs.SHORTNAME ? attrs.SHORTNAME + ', ' : '';
-                    return roomNameStr + attrs.LOCATION + ' (Building ' + attrs.BUILDING + ')';
+                    var roomNameStr = attrs.ROOM_NUM ? attrs.ROOM_NUM + ', ' : '';
+                    return roomNameStr + (attrs.OCCUPIED_BY || '') + ' (Bldg ' + attrs.BLDG_NAME + ')';
                 },
                 queryIconClass: 'fa fa-map-marker'
             },
             lineLayerInfo: {
                 url: null,
                 layerNum: 0,
-                buildingField: 'BLDG_NAME',
+                buildingField: 'BLDG_KEY',
                 floorField: 'FLOOR_NUM',
                 addToMap: true,
                 showInLegend: false,
@@ -252,12 +252,12 @@ define(function() {
              lineLayerInfo_additional: {
                  url: null,
                  layerNum: 1,
-                 buildingField: 'BLDG_NAME',
+                 buildingField: 'BLDG_KEY',
                  floorField: 'FLOOR_NUM',
                  addToMap: true,
                  showInLegend: false,
                  floorFilter: true
-             },
+             }
             // labelLayerInfo: {
             //     layerNum: 7, // this is the number after MapServer/ in the rest endpoint url
             //     buildingField: 'building',
@@ -290,7 +290,7 @@ define(function() {
             //     showInLegend: false,
             //     floorFilter: false // if false, will always display, no matter which building.
             // },
-            personQueryLayerInfo: {
+            /*personQueryLayerInfo: {
                 url: null,
                 layerNum: 8,
                 addToMap: false,
@@ -319,7 +319,7 @@ define(function() {
                     return attrs.KNOWN_AS_N + ' (' + locStr + ')';
                 },
                 queryIconClass: 'fa fa-user'
-            }
+            }*/
 
         }
     };
