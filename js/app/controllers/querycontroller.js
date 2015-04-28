@@ -78,6 +78,7 @@ function(declare, lang, topic, dojoOn,
                 query: {
                     outFields: [this.buildingLyrInfo.buildingField],
                     returnGeometry: true,
+                    outSpatialReference: app.map.spatialReference,
                     where: queryUtil.constructWhereAnd([{
                         fieldName: this.buildingLyrInfo.buildingField,
                         newValue: this.currentQueryResults.building
@@ -113,6 +114,7 @@ function(declare, lang, topic, dojoOn,
                 query: {
                     outFields: [this.buildingLyrInfo.buildingField],
                     geometry: mapEvt.mapPoint,
+                    outSpatialReference: mapEvt.mapPoint.spatialReference,
                     returnGeometry: true
                 },
                 url: this.buildingLyrInfo.url || this.mapServiceUrl + '/' + this.buildingLyrInfo.layerNum,
@@ -200,6 +202,7 @@ function(declare, lang, topic, dojoOn,
                 query: {
                     outFields: this.roomOutfields,
                     geometry: mapClickPoint,
+                    outSpatialReference: mapClickPoint.spatialReference,
                     returnGeometry: true,
                     where: queryUtil.constructWhereAnd([{
                         fieldName: this.roomLyrInfo.buildingField,
@@ -222,6 +225,7 @@ function(declare, lang, topic, dojoOn,
                 query: {
                     outFields: _.union(this.roomOutfields, [this.roomLyrInfo.buildingField, this.roomLyrInfo.floorField]),
                     returnGeometry: true,
+                    outSpatialReference: app.map.spatialReference,
                     where: queryUtil.constructWhereAnd([{
                         fieldName: 'UPPER(' + this.roomLyrInfo.roomField + ')',
                         newValue: roomId.toUpperCase()
@@ -392,6 +396,7 @@ function(declare, lang, topic, dojoOn,
                 query: {
                     outFields: _.union(this.roomOutfields, [this.roomLyrInfo.buildingField, this.roomLyrInfo.floorField]),
                     returnGeometry: true,
+                    outSpatialReference: app.map.spatialReference,
                     objectIds: [oid]
                 },
                 url: this.roomLyrInfo.url || this.mapServiceUrl + '/' + this.roomLyrInfo.layerNum,
