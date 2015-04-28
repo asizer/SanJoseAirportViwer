@@ -16,6 +16,8 @@ function(declare, lang, topic, dojoOn,
         constructor: function(options) {
             this.mapServiceUrl = options.mapServiceUrl;
             this.config = options.config;
+            this.startingBuilding = options.startingBuilding;
+            this.bldgLyrNum = options.bldgLyrNum;
             this.overviewMapDijit = new OverviewMap({
                 id: 'ovm', // avoiding verbose default widget id
                 map: options.map,
@@ -92,7 +94,11 @@ function(declare, lang, topic, dojoOn,
         },
 
         addDataLayer: function() {
-            this.dataLayer.setVisibleLayers(this.config.visibleLayers);
+            if (this.startingBuilding) {
+                this.dataLayer.setVisibleLayers(this.config.visibleLayers);
+            } else {
+                this.dataLayer.setVisibleLayers([this.bldgLyrNum]);
+            }
             var self = this;
             // in the future, if overviewMapDijit is closed on load...
             if (!this.overviewMapDijit.visible) {
@@ -133,6 +139,10 @@ function(declare, lang, topic, dojoOn,
         },
 
         setDefExprs: function(pubArgs) {
+            if (!pubArgs.layerDefArr) {
+                return;
+            }
+            this.dataLayer.setVisibleLayers(this.config.visibleLayers);
             this.dataLayer.setLayerDefinitions(pubArgs.layerDefArr);
         }
     });
