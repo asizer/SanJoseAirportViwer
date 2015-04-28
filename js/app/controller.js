@@ -331,6 +331,7 @@ function(config,
                 mobileView: mobileView
             });
             printView.startup();
+            console.log(this.map)
 
             var print = new Print({
               templates: [{
