@@ -23,7 +23,7 @@
 }
 
 #map-container .btn{
-  background-color: rgba(238,238,238,0.7);
+  background-color: rgba(238,238,238,0.7)
 }
 
 #map-container .map-toggle.btn{
@@ -32,6 +32,7 @@
 
 #map-container .map-toggle.btn.highlight{
   background-color: #666799;
+  color:white;
 }
 
 #map-container .map-toggle.btn.arrow-box:after{
@@ -94,4 +95,9 @@
 
 #bmgView-panel .esriBasemapGallerySelectedNode .esriBasemapGalleryThumbnail{
   border: 2px solid #2d2e66;
+}
+
+#map-container .btn.highlight{
+  background-color: #666799;
+  color: white;
 }
