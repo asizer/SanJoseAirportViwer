@@ -346,7 +346,8 @@ function(config,
                   format: "PDF",
                   layout: "Letter ANSI A Landscape",
                   layoutOptions:{
-                    legendLayers: lengendLayerList
+                    scalebarUnit: "Feet",
+                    legendLayers: []
                   },
                   showAttribution:false,
                   // exportOptions: {

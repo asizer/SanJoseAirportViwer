@@ -110,3 +110,33 @@
 .LayerSearcher .input-wrapper{
   width:250px;
 }
+
+/* these two solve the height of the text input */
+.LayerSearcher .input-wrapper {
+  height: 100%;
+}
+
+.LayerSearcher input {
+    height: 100%;
+    box-sizing: border-box;
+}
+
+/* this solves the double X in IE */
+.LayerSearcher input::-ms-clear {
+    display:none;
+}
+
+/* this changes the box highlight in the overview map */
+.esriOverviewMap .ovwHighlight {
+  border: 2px solid #666799 !important;
+}
+
+/* this changes the color of the title in the popup */
+.esriViewPopup .header {
+  color: #666799;
+}
+
+/* this changes the color of the map loading spinner */
+#load-indicator {
+  color: #666799;
+}

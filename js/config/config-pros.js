@@ -234,7 +234,7 @@ define(function() {
                 queryLabelFunction: function(attrs) {
                     // 'this' = roomLyrInfo
                     var roomNameStr = attrs.ROOM_NUM ? attrs.ROOM_NUM + ', ' : '';
-                    return roomNameStr + (attrs.OCCUPIED_BY || '') + ' (Bldg ' + attrs.BLDG_NAME + ')';
+                    return roomNameStr + (attrs.OCCUPIED_BY || '') + ' (' + attrs.BLDG_NAME + ')';
                 },
                 queryIconClass: 'fa fa-map-marker'
             },
