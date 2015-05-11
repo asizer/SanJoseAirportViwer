@@ -55,6 +55,7 @@
 
 #bookmarksView-panel{
   text-align: center;
+  max-width: none;
 }
 
 #printView-panel{
@@ -137,6 +138,31 @@
 }
 
 /* this changes the color of the map loading spinner */
+#load-indicator {
+  color: #666799;
+}
+
+.LayerSearcher .input-wrapper {
+  height: 100%;
+}
+
+.LayerSearcher input {
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.LayerSearcher input::-ms-clear {
+    display:none;
+}
+
+.esriOverviewMap .ovwHighlight {
+  border: 2px solid #666799 !important;
+}
+
+.esriViewPopup .header {
+  color: #666799;
+}
+
 #load-indicator {
   color: #666799;
 }

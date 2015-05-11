@@ -46,8 +46,6 @@ function(declare, dojoEvent, lang, domConstruct, domStyle, domClass, domAttr, to
         },
 
         addEventListeners: function() {
-            // dojoOn(document, 'click', lang.hitch(this, this.clearResults));
-
             topic.subscribe('map-resize', lang.hitch(this, this.onMapResize));
             dojoOn(this.viewWidget, 'mappanel-show', lang.hitch(this, this.focus));
 
@@ -99,11 +97,20 @@ function(declare, dojoEvent, lang, domConstruct, domStyle, domClass, domAttr, to
 
         clearResults: function() {
             domConstruct.empty(this.resultsNode);
+            // non-ie browsers don't need this, but
+            // ie can't seem to handle a div with height: auto
+            // and max-height specified (and maybe parent positioning
+            // is screwing things up too?)
+            this.hideResultsNode();
             this.clearSearchError();
         },
 
         hideResultsNode: function() {
-            domClass.add(this.resultsNode, 'hide');
+            domStyle.set(this.resultsNode, 'height', '0');
+        },
+
+        showResultsNode: function() {
+            domStyle.set(this.resultsNode, 'height', 'auto');
         },
 
         onInputKeyUp: function(evt) {
@@ -115,15 +122,11 @@ function(declare, dojoEvent, lang, domConstruct, domStyle, domClass, domAttr, to
 
             this.inputValue = this.inputNode.value || '';
 
-            // TODO: handle enter and escape on inputNode
             if (this.inputValue === '') {
                 console.debug('no string here');
                 domClass.remove(this.containerNode, 'has-input');
                 this.clearResults();
                 return;
-            // } else if (evt.keyCode === dojoKeys.ENTER) {
-            //     this.clearResults();
-            //     this.emit('search-immediate', this.inputValue);
             } else if (evt.keyCode === dojoKeys.ESCAPE || evt.keyCode === dojoKeys.TAB) {
                 this.clearResults();
                 this.emit('search-cancel');
@@ -233,6 +236,8 @@ function(declare, dojoEvent, lang, domConstruct, domStyle, domClass, domAttr, to
                 return;
             }
 
+            this.showResultsNode();
+
             this.clearSearchError();
 
             var regex = new RegExp('(' + this.inputValue + ')', 'gi');
@@ -255,11 +260,8 @@ function(declare, dojoEvent, lang, domConstruct, domStyle, domClass, domAttr, to
                 }, resultsUL);
             });
 
-            // TODO: figure out why the phantom resultsNode is being left behind
-            // domStyle.set(this.resultsNode, 'maxHeight', 'none');
             domConstruct.empty(this.resultsNode);
             domConstruct.place(resultsUL, this.resultsNode);
-            // domStyle.set(this.resultsNode, 'maxHeight', this.searchResultsHeight + 'px');
         },
 
         clearSearchError: function() {
@@ -268,6 +270,7 @@ function(declare, dojoEvent, lang, domConstruct, domStyle, domClass, domAttr, to
 
         handleNoResults: function() {
             domConstruct.empty(this.resultsNode);
+            this.hideResultsNode();
             domClass.add(this.domNode, 'search-error');
         },
 
